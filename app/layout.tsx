@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Net Worth Percentile Calculator — Where Do You Rank?",
+  title: "Home Affordability Calculator — How Much House Can You Afford?",
   description:
-    "Find out where your net worth ranks among Americans your age. Uses Federal Reserve 2022 Survey of Consumer Finances data. Free, no sign-up.",
-  metadataBase: new URL("https://networthrank.com"),
+    "Find out how much home you can afford based on your income, debts, and down payment. All 50 states. Free calculator, no sign-up.",
+  metadataBase: new URL("https://homebuycheck.com"),
   openGraph: {
-    title: "Net Worth Percentile Calculator",
+    title: "Home Affordability Calculator",
     description:
-      "See where your net worth ranks among Americans your age. Federal Reserve data.",
-    url: "https://networthrank.com",
-    siteName: "networthrank.com",
+      "Find out how much home you can afford based on your income, debts, and down payment. All 50 states.",
+    url: "https://homebuycheck.com",
+    siteName: "homebuycheck.com",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Net Worth Percentile Calculator",
-    description: "See where your net worth ranks among Americans your age.",
+    title: "Home Affordability Calculator",
+    description: "How much house can you afford? Enter your income and debts to find out.",
   },
   alternates: {
-    canonical: "https://networthrank.com",
+    canonical: "https://homebuycheck.com",
   },
 };
 

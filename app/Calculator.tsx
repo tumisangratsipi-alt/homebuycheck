@@ -2,212 +2,261 @@
 
 import { useState } from "react";
 import {
-  getPercentile,
-  getTopPercent,
-  getDiffFromMedian,
+  calculateAffordability,
   formatCurrency,
-  NATIONAL_MEDIAN,
-  AGE_BRACKET_LABELS,
-  type AgeBracket,
-} from "@/lib/scf-data";
+  formatPercent,
+  STATE_NAMES,
+  type AffordabilityResult,
+} from "@/lib/affordability-data";
 
-interface Result {
-  percentile: number;
-  topPercent: number;
-  bracket: AgeBracket;
-  bracketLabel: string;
-  netWorth: number;
-  median: number;
-  diffAmount: number;
-  diffDirection: "ahead" | "behind";
-}
+const STATE_CODES = Object.keys(STATE_NAMES).sort((a, b) =>
+  STATE_NAMES[a].localeCompare(STATE_NAMES[b])
+);
 
-function PercentileBar({ percentile }: { percentile: number }) {
+function DTIBar({ result }: { result: AffordabilityResult }) {
+  const housingPct = Math.min(result.frontEndDTI, 100);
+  const otherDebtPct = Math.min(
+    (result.monthlyPayment > 0
+      ? (result.backEndDTI - result.frontEndDTI)
+      : 0),
+    100 - housingPct
+  );
+  const remaining = Math.max(0, 100 - housingPct - otherDebtPct);
+
   return (
-    <div className="mt-5">
+    <div className="mt-4">
       <div className="flex justify-between mb-2">
-        <span className="terminal-label">Bottom</span>
+        <span className="terminal-label">Debt-to-income breakdown</span>
         <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
-          {percentile}th percentile
+          36% limit
         </span>
-        <span className="terminal-label">Top</span>
       </div>
-      <div
-        className="relative h-2.5 rounded-full overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.06)" }}
-      >
+      {/* Front-end DTI bar */}
+      <div className="mb-3">
+        <div className="flex justify-between mb-1">
+          <span className="terminal-label">Housing (front-end DTI)</span>
+          <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
+            {formatPercent(result.frontEndDTI)} / 28% limit
+          </span>
+        </div>
         <div
-          className="h-full rounded-full transition-all duration-700"
-          style={{
-            width: `${percentile}%`,
-            background: "linear-gradient(90deg, var(--amber-600) 0%, var(--amber-400) 100%)",
-          }}
-        />
+          className="relative h-2 rounded-full overflow-hidden"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
+          <div
+            className="h-full rounded-full transition-all duration-700"
+            style={{
+              width: `${Math.min(result.frontEndDTI / 28 * 100, 100)}%`,
+              background: result.frontEndDTI > 28
+                ? "linear-gradient(90deg, #EF4444, #F87171)"
+                : "linear-gradient(90deg, #0EA5E9, #38BDF8)",
+            }}
+          />
+        </div>
+      </div>
+      {/* Back-end DTI bar */}
+      <div>
+        <div className="flex justify-between mb-1">
+          <span className="terminal-label">Total debts (back-end DTI)</span>
+          <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
+            {formatPercent(result.backEndDTI)} / 36% limit
+          </span>
+        </div>
         <div
-          className="absolute top-0 h-full w-px -translate-x-1/2 opacity-80"
-          style={{ left: `${percentile}%`, background: "#fff" }}
-        />
+          className="relative h-2.5 rounded-full overflow-hidden"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
+          {/* Housing portion */}
+          <div
+            className="absolute left-0 top-0 h-full transition-all duration-700"
+            style={{
+              width: `${Math.min(housingPct / 36 * 100, 100)}%`,
+              background: "linear-gradient(90deg, #0EA5E9, #38BDF8)",
+              borderRadius: otherDebtPct < 1 ? "4px" : "4px 0 0 4px",
+            }}
+          />
+          {/* Other debts portion */}
+          {otherDebtPct > 0.5 && (
+            <div
+              className="absolute top-0 h-full transition-all duration-700"
+              style={{
+                left: `${Math.min(housingPct / 36 * 100, 100)}%`,
+                width: `${Math.min(otherDebtPct / 36 * 100, 100)}%`,
+                background: "linear-gradient(90deg, #D97706, #F59E0B)",
+              }}
+            />
+          )}
+          {/* 36% limit marker */}
+          <div
+            className="absolute top-0 h-full w-px opacity-60"
+            style={{ left: "100%", background: "#fff" }}
+          />
+        </div>
+        <div className="flex gap-4 mt-2">
+          <span className="terminal-label flex items-center gap-1">
+            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#38BDF8" }} />
+            Housing
+          </span>
+          <span className="terminal-label flex items-center gap-1">
+            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#F59E0B" }} />
+            Other debts
+          </span>
+          <span className="terminal-label flex items-center gap-1">
+            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "rgba(255,255,255,0.15)" }} />
+            Available
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
-function ShareButtons({ result }: { result: Result }) {
-  const [copied, setCopied] = useState(false);
-
-  const shareText = `My net worth puts me in the top ${result.topPercent}% of Americans ages ${result.bracketLabel}. Calculated at networthrank.com`;
-
-  const copyResult = async () => {
-    try {
-      await navigator.clipboard.writeText(shareText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // noop
-    }
-  };
-
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-    "https://networthrank.com"
-  )}&summary=${encodeURIComponent(shareText)}`;
+function AffordabilityBadge({ rating }: { rating: AffordabilityResult["affordabilityRating"] }) {
+  const config = {
+    Conservative: { color: "#22C55E", bg: "rgba(34,197,94,0.12)", label: "Conservative" },
+    Moderate:     { color: "#F59E0B", bg: "rgba(245,158,11,0.12)", label: "Moderate" },
+    Aggressive:   { color: "#EF4444", bg: "rgba(239,68,68,0.12)", label: "Aggressive" },
+  }[rating];
 
   return (
-    <div className="flex gap-3 mt-6">
-      <button
-        onClick={copyResult}
-        className="btn-orbital flex-1 text-sm py-2.5"
-      >
-        {copied ? "Copied!" : "Copy result"}
-      </button>
-      <a
-        href={linkedinUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn-orbital flex-1 text-sm py-2.5 text-center"
-        style={{ textDecoration: "none" }}
-      >
-        Share on LinkedIn
-      </a>
-    </div>
+    <span
+      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-mono uppercase tracking-wider"
+      style={{ color: config.color, background: config.bg, border: `1px solid ${config.color}33` }}
+    >
+      <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: config.color }} />
+      {config.label}
+    </span>
   );
 }
 
-function ResultCard({ result }: { result: Result }) {
-  const isAhead = result.diffDirection === "ahead";
-  const tone =
-    result.percentile >= 75
-      ? "You are well ahead of most Americans your age."
-      : result.percentile >= 50
-      ? "You are above the median for your age group."
-      : result.percentile >= 25
-      ? "You are close to the national median for your age."
-      : "Building net worth takes time. Here is what moves the needle most.";
+function ResultCard({ result }: { result: AffordabilityResult }) {
+  const hasPMI = result.monthlyPMI > 0;
 
   return (
     <div className="gradient-border-result rounded-xl p-6 mt-8">
-      <p className="terminal-label mb-4">Your rank</p>
+      <div className="flex items-center justify-between mb-4">
+        <p className="terminal-label">Affordability estimate</p>
+        <AffordabilityBadge rating={result.affordabilityRating} />
+      </div>
 
+      {/* Hero number */}
       <div className="text-center my-6">
         <p className="text-sm mb-1" style={{ color: "var(--text-muted)" }}>
-          You are in the
+          Max home price in {result.stateName}
         </p>
         <p
           className="text-gradient-1 font-black leading-none glow-amber"
-          style={{ fontSize: "clamp(56px, 14vw, 96px)" }}
+          style={{ fontSize: "clamp(48px, 12vw, 84px)" }}
         >
-          TOP {result.topPercent}%
+          {formatCurrency(result.maxHomePrice)}
         </p>
-        <p className="mt-2 font-semibold" style={{ color: "var(--text-secondary)" }}>
-          of Americans ages {result.bracketLabel}
+        <p className="mt-2 text-sm font-mono" style={{ color: "var(--text-muted)" }}>
+          {formatPercent(result.downPaymentPct)} down &middot; {formatCurrency(result.loanAmount)} loan
         </p>
       </div>
 
-      <PercentileBar percentile={result.percentile} />
-
-      {/* Comparison grid */}
+      {/* Monthly payment breakdown */}
       <div className="holo-panel p-4 mt-6 space-y-2">
+        <p className="terminal-label mb-3">Monthly payment breakdown</p>
         <div className="flex justify-between items-center">
-          <span className="terminal-label">Median, ages {result.bracketLabel}</span>
-          <span className="tabular-gold text-sm">{formatCurrency(result.median)}</span>
+          <span className="terminal-label">Principal &amp; interest</span>
+          <span className="tabular-gold text-sm">{formatCurrency(result.monthlyPrincipalInterest)}/mo</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="terminal-label">Your net worth</span>
-          <span className="tabular-gold text-sm">{formatCurrency(result.netWorth)}</span>
+          <span className="terminal-label">Property tax (est.)</span>
+          <span className="tabular-gold text-sm">{formatCurrency(result.monthlyPropertyTax)}/mo</span>
         </div>
+        <div className="flex justify-between items-center">
+          <span className="terminal-label">Homeowner&apos;s insurance</span>
+          <span className="tabular-gold text-sm">{formatCurrency(result.monthlyInsurance)}/mo</span>
+        </div>
+        {hasPMI && (
+          <div className="flex justify-between items-center">
+            <span className="terminal-label">PMI (down &lt; 20%)</span>
+            <span className="tabular-gold text-sm">{formatCurrency(result.monthlyPMI)}/mo</span>
+          </div>
+        )}
         <div
           className="flex justify-between items-center pt-2 mt-1"
           style={{ borderTop: "1px solid var(--border-subtle)" }}
         >
-          <span className="terminal-label">vs. median</span>
+          <span className="terminal-label">Total monthly PITI{hasPMI ? "+PMI" : ""}</span>
           <span
             className="font-bold font-mono text-sm"
-            style={{ color: isAhead ? "var(--emerald-500)" : "var(--rose-500)" }}
+            style={{ color: "var(--amber-500)" }}
           >
-            {isAhead ? "+" : "-"}{formatCurrency(result.diffAmount)}&nbsp;
-            {isAhead ? "ahead" : "behind"}
+            {formatCurrency(result.monthlyPayment)}/mo
           </span>
         </div>
       </div>
 
-      <p className="text-sm mt-4" style={{ color: "var(--text-muted)" }}>
-        {tone}
-      </p>
+      {/* DTI bar */}
+      <DTIBar result={result} />
 
-      <ShareButtons result={result} />
-
-      {/* CTAs */}
+      {/* CTA */}
       <div className="mt-6 space-y-3">
         <a
-          href="https://calcmoney.io/calculators/net-worth"
+          href="https://calcmoney.io"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          Full financial breakdown at CalcMoney &rarr;
-        </a>
-        <a
-          href="https://www.empower.com/personal-wealth"
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-          className="block w-full text-center py-3 px-4 rounded-md text-sm transition-opacity hover:opacity-70"
-          style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid var(--border-default)",
-            color: "var(--text-muted)",
-            textDecoration: "none",
-          }}
-        >
-          Track your net worth automatically &mdash; Empower is free &rarr;
+          More calculators at CalcMoney &rarr;
         </a>
       </div>
+
+      {hasPMI && (
+        <p className="text-xs mt-4" style={{ color: "var(--text-muted)" }}>
+          PMI applies because your down payment is less than 20%. Once you reach 20% equity, you can request PMI removal.
+        </p>
+      )}
     </div>
   );
 }
 
 export default function Calculator() {
-  const [netWorthInput, setNetWorthInput] = useState("");
-  const [bracket, setBracket] = useState<AgeBracket | "">("");
-  const [result, setResult] = useState<Result | null>(null);
+  const [income, setIncome] = useState("");
+  const [debts, setDebts] = useState("");
+  const [downPayment, setDownPayment] = useState("");
+  const [rate, setRate] = useState("7.0");
+  const [term, setTerm] = useState<15 | 30>(30);
+  const [stateCode, setStateCode] = useState("");
+  const [result, setResult] = useState<AffordabilityResult | null>(null);
   const [error, setError] = useState("");
+
+  const parseNumber = (s: string) => parseFloat(s.replace(/[$,\s]/g, ""));
 
   const handleCalculate = () => {
     setError("");
-    const raw = netWorthInput.replace(/[$,\s]/g, "");
-    const nw = parseFloat(raw);
-    if (isNaN(nw)) {
-      setError("Enter a valid net worth amount — e.g. 250000 or -15000.");
+    const grossAnnualIncome = parseNumber(income);
+    const monthlyDebts = parseNumber(debts) || 0;
+    const down = parseNumber(downPayment) || 0;
+    const interestRate = parseFloat(rate);
+
+    if (isNaN(grossAnnualIncome) || grossAnnualIncome <= 0) {
+      setError("Enter a valid annual gross income.");
       return;
     }
-    if (!bracket) {
-      setError("Select your age bracket.");
+    if (isNaN(interestRate) || interestRate <= 0 || interestRate > 25) {
+      setError("Enter a valid interest rate (e.g. 7.0).");
       return;
     }
-    const percentile = getPercentile(nw, bracket);
-    const topPercent = getTopPercent(percentile);
-    const { amount: diffAmount, direction: diffDirection } = getDiffFromMedian(nw, bracket);
-    const median = NATIONAL_MEDIAN[bracket];
-    setResult({ percentile, topPercent, bracket, bracketLabel: AGE_BRACKET_LABELS[bracket], netWorth: nw, median, diffAmount, diffDirection });
+    if (!stateCode) {
+      setError("Select your state.");
+      return;
+    }
+
+    const res = calculateAffordability({
+      grossAnnualIncome,
+      monthlyDebts,
+      downPayment: down,
+      interestRate,
+      loanTermYears: term,
+      stateCode,
+    });
+
+    setResult(res);
     setTimeout(() => {
       document.getElementById("result")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -217,40 +266,126 @@ export default function Calculator() {
     if (e.key === "Enter") handleCalculate();
   };
 
+  const inputStyle = {
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid var(--border-default)",
+    color: "var(--amber-400)",
+  };
+
   return (
     <div>
-      {/* Form */}
       <div className="aura-panel p-6">
         <div className="space-y-5">
+          {/* Annual income */}
           <div>
             <label className="terminal-label block mb-2">
-              Net worth (assets minus debts)
+              Annual gross income (before taxes)
             </label>
             <input
               type="text"
               inputMode="numeric"
-              placeholder="250000"
-              value={netWorthInput}
-              onChange={(e) => setNetWorthInput(e.target.value)}
+              placeholder="85000"
+              value={income}
+              onChange={(e) => setIncome(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
               className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid var(--border-default)",
-                color: "var(--amber-400)",
-              }}
+              style={inputStyle}
+            />
+          </div>
+
+          {/* Monthly debts */}
+          <div>
+            <label className="terminal-label block mb-2">
+              Monthly debt payments (car, student loans, credit cards, etc.)
+            </label>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder="400"
+              value={debts}
+              onChange={(e) => setDebts(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-              Total assets (home equity, investments, retirement, savings) minus total debts (mortgage, loans, credit cards). Negative values are fine.
+              Do not include rent — only recurring debt obligations.
             </p>
           </div>
 
+          {/* Down payment */}
           <div>
-            <label className="terminal-label block mb-2">Age bracket</label>
+            <label className="terminal-label block mb-2">
+              Down payment amount
+            </label>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder="30000"
+              value={downPayment}
+              onChange={(e) => setDownPayment(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              style={inputStyle}
+            />
+            <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
+              Less than 20% of the home price triggers PMI (private mortgage insurance).
+            </p>
+          </div>
+
+          {/* Interest rate */}
+          <div>
+            <label className="terminal-label block mb-2">
+              Interest rate (%)
+            </label>
+            <input
+              type="number"
+              inputMode="decimal"
+              placeholder="7.0"
+              min="0.1"
+              max="25"
+              step="0.1"
+              value={rate}
+              onChange={(e) => setRate(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              style={inputStyle}
+            />
+          </div>
+
+          {/* Loan term toggle */}
+          <div>
+            <label className="terminal-label block mb-2">Loan term</label>
+            <div className="flex gap-2">
+              {([30, 15] as const).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTerm(t)}
+                  className="flex-1 py-2.5 rounded-md text-sm font-mono font-bold transition-all duration-150"
+                  style={{
+                    background: term === t
+                      ? "linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%)"
+                      : "rgba(255,255,255,0.04)",
+                    color: term === t ? "#09090B" : "var(--text-muted)",
+                    border: term === t ? "none" : "1px solid var(--border-default)",
+                  }}
+                >
+                  {t}-year
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* State */}
+          <div>
+            <label className="terminal-label block mb-2">State</label>
             <select
-              value={bracket}
-              onChange={(e) => setBracket(e.target.value as AgeBracket | "")}
+              value={stateCode}
+              onChange={(e) => setStateCode(e.target.value)}
               className="w-full rounded-md px-4 py-3 text-base transition-colors"
               style={{
                 background: "rgba(255,255,255,0.04)",
@@ -259,15 +394,13 @@ export default function Calculator() {
               }}
             >
               <option value="" style={{ background: "#16181F" }}>
-                Select your age
+                Select your state
               </option>
-              {(Object.entries(AGE_BRACKET_LABELS) as [AgeBracket, string][]).map(
-                ([key, label]) => (
-                  <option key={key} value={key} style={{ background: "#16181F" }}>
-                    {label}
-                  </option>
-                )
-              )}
+              {STATE_CODES.map((code) => (
+                <option key={code} value={code} style={{ background: "#16181F" }}>
+                  {STATE_NAMES[code]}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -278,12 +411,11 @@ export default function Calculator() {
           )}
 
           <button className="btn-primary-gold" onClick={handleCalculate}>
-            Calculate My Rank
+            Calculate Affordability
           </button>
         </div>
       </div>
 
-      {/* Result */}
       <div id="result">
         {result && <ResultCard result={result} />}
       </div>

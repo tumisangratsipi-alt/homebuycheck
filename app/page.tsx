@@ -2,37 +2,37 @@ import Calculator from "./Calculator";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Net Worth Percentile Calculator — Where Do You Rank?",
+  title: "Home Affordability Calculator — How Much House Can You Afford?",
   description:
-    "Find out where your net worth ranks among Americans your age. Uses Federal Reserve 2022 Survey of Consumer Finances data. Free, no sign-up.",
+    "Find out how much home you can afford based on your income, debts, and down payment. All 50 states. Free calculator, no sign-up.",
 };
 
 const faqItems = [
   {
-    q: "What counts as net worth?",
-    a: "Net worth is the total value of everything you own minus everything you owe. Assets include your home equity (market value minus mortgage balance), investment accounts, retirement accounts (401k, IRA), savings, and any other valuables. Debts include your mortgage balance, student loans, auto loans, credit card balances, and other liabilities. Negative net worth is common, especially for people under 35 still paying down student debt.",
+    q: "What is the 28/36 rule for buying a home?",
+    a: "The 28/36 rule is the standard lenders use to evaluate whether you can afford a mortgage. The front-end ratio (28%) means your total monthly housing costs — principal, interest, property taxes, and insurance (PITI) — should not exceed 28% of your gross monthly income. The back-end ratio (36%) means all monthly debt payments combined, including housing and any existing debts like car loans or student loans, should not exceed 36% of gross monthly income. This calculator uses both limits and applies the more conservative of the two.",
   },
   {
-    q: "Where does this data come from?",
-    a: "All percentile data is sourced from the Federal Reserve 2022 Survey of Consumer Finances (SCF), published October 2023. The SCF is the gold standard for US household wealth data, conducted every three years by the Federal Reserve. It surveys over 4,500 households and oversamples high-wealth households for accuracy at the top of the distribution.",
+    q: "How does my down payment affect what I can afford?",
+    a: "A larger down payment directly increases the home price you can afford by reducing the loan amount — which lowers your monthly principal and interest payment. It also reduces or eliminates private mortgage insurance (PMI), which is required when your down payment is less than 20% of the home price. PMI typically costs 0.5% to 1% of the loan amount annually. A 20% down payment removes that cost entirely and gives you immediate equity in the home.",
   },
   {
-    q: "What is a good net worth at my age?",
-    a: "There is no universal benchmark, but the Federal Reserve SCF gives context. The median American household net worth is $192,700 across all ages (2022). At age 35-44, the median is $135,000. At 45-54, it's $248,000. By 65-74, it's $410,000. A net worth above the 75th percentile for your age group means you are ahead of three-quarters of Americans your age.",
+    q: "What other costs should I budget for beyond the mortgage?",
+    a: "Monthly homeownership costs go well beyond principal and interest. This calculator already estimates property taxes (1.1% annually, national average), homeowner's insurance (0.5% annually), and PMI if applicable. Beyond those, you should budget for HOA fees if the community has one (can range from $100 to $1,000+ per month), closing costs (typically 2-5% of the loan amount), maintenance (most experts recommend budgeting 1% of home value annually), and utilities. These can meaningfully affect your real affordability.",
   },
   {
-    q: "Why does age matter for net worth comparisons?",
-    a: "Net worth compounds over time. A 28-year-old with $50,000 and a 60-year-old with $50,000 are in completely different situations. Comparing yourself to your age group gives a much more meaningful picture than a flat national average, which is skewed heavily by older, higher-wealth households.",
+    q: "Should I get pre-approved before using this calculator?",
+    a: "Yes. This calculator gives you a solid estimate based on the 28/36 rule, but a mortgage pre-approval from a lender is the definitive number. Pre-approval involves a hard credit pull and a full review of your income, assets, and debts. Lenders may use different underwriting standards, offer different rates based on your credit score, and account for factors this calculator cannot — such as employment history, type of income (W-2 vs. self-employed), and the specific loan product. Use this calculator to understand your range, then get pre-approved to confirm the real number.",
   },
 ];
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Net Worth Percentile Calculator",
-  url: "https://networthrank.com",
+  name: "Home Affordability Calculator",
+  url: "https://homebuycheck.com",
   description:
-    "Calculate where your net worth ranks among Americans your age using Federal Reserve 2022 SCF data.",
+    "Calculate how much home you can afford based on your income, debts, and down payment using the 28/36 DTI rule.",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   offers: {
@@ -82,10 +82,10 @@ export default function Home() {
             className="font-bold text-lg tracking-tight"
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
-            <span className="text-gradient-1">networth</span>rank.com
+            <span className="text-gradient-1">homebuy</span>check.com
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Data: Federal Reserve 2022 SCF
+            28/36 Rule Calculator
           </span>
         </div>
       </header>
@@ -97,18 +97,18 @@ export default function Home() {
             className="font-black mb-3 leading-tight"
             style={{ fontSize: "clamp(28px, 6vw, 42px)" }}
           >
-            Net Worth Percentile
+            Home Affordability
             <br />
             <span className="text-gradient-1">Calculator</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-lg mx-auto" style={{ color: "var(--text-muted)" }}>
-            Enter your net worth and age. See exactly where you rank among
-            Americans your age using{" "}
+            Enter your income and debts. See exactly how much house you can afford
+            using the{" "}
             <a
               href="/methodology"
               style={{ color: "var(--amber-500)", textDecoration: "none" }}
             >
-              Federal Reserve data
+              28/36 rule
             </a>
             .
           </p>
@@ -155,7 +155,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-8 text-sm" style={{ color: "var(--text-muted)" }}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
-              Data: 2022 Federal Reserve Survey of Consumer Finances.{" "}
+              Based on the 28/36 DTI rule.{" "}
               <a href="/methodology" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
                 Methodology &rarr;
               </a>
@@ -173,8 +173,7 @@ export default function Home() {
             </p>
           </div>
           <p className="mt-3 text-xs">
-            Not financial advice. Net worth percentiles are calculated from household survey data
-            and are estimates. &copy; {new Date().getFullYear()} networthrank.com
+            Not financial advice. Estimates are based on national averages and standard underwriting guidelines. Actual mortgage qualification may differ. &copy; {new Date().getFullYear()} homebuycheck.com
           </p>
         </div>
       </footer>
