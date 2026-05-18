@@ -141,12 +141,13 @@ body::after {
     @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl transition-all duration-500 shadow-2xl shadow-black/60 relative overflow-hidden;
     box-shadow: var(--shadow-inset-panel);
     will-change: opacity, transform;
-    contain: layout style;
+    isolation: isolate;
   }
 
   .aura-panel::before {
     content: '';
     @apply absolute inset-0 rounded-2xl pointer-events-none;
+    z-index: -1;
     background: linear-gradient(135deg,
         rgba(212, 175, 55, 0.06) 0%,
         transparent 40%,
@@ -158,6 +159,7 @@ body::after {
     content: '';
     @apply absolute rounded-2xl pointer-events-none;
     inset: 0;
+    z-index: -1;
     border: 1px solid transparent;
     background:
       linear-gradient(#09090B, #09090B) padding-box,
