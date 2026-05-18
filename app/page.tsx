@@ -80,9 +80,9 @@ export default function Home() {
           <a
             href="/"
             className="font-bold text-lg tracking-tight"
-            style={{ color: "var(--text)", textDecoration: "none" }}
+            style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
-            <span className="gold-text">networth</span>rank.com
+            <span className="text-gradient-1">networth</span>rank.com
           </a>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             Data: Federal Reserve 2022 SCF
@@ -99,32 +99,30 @@ export default function Home() {
           >
             Net Worth Percentile
             <br />
-            <span className="gold-text">Calculator</span>
+            <span className="text-gradient-1">Calculator</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-lg mx-auto" style={{ color: "var(--text-muted)" }}>
             Enter your net worth and age. See exactly where you rank among
             Americans your age using{" "}
             <a
               href="/methodology"
-              style={{ color: "var(--gold)", textDecoration: "none" }}
+              style={{ color: "var(--amber-500)", textDecoration: "none" }}
             >
               Federal Reserve data
             </a>
             .
           </p>
           <div
-            className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full text-xs font-medium"
+            className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full"
             style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              color: "var(--text-muted)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid var(--border-default)",
             }}
           >
-            <span
-              className="w-2 h-2 rounded-full"
-              style={{ background: "#4ade80", boxShadow: "0 0 6px #4ade80" }}
-            />
-            Free. No sign-up. No data collected.
+            <span className="live-dot" />
+            <span className="terminal-label" style={{ letterSpacing: "0.08em" }}>
+              Free. No sign-up. No data collected.
+            </span>
           </div>
         </div>
 
@@ -134,16 +132,9 @@ export default function Home() {
         {/* FAQ */}
         <section className="mt-14">
           <h2 className="text-xl font-bold mb-6">Frequently asked questions</h2>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {faqItems.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-lg p-5"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                }}
-              >
+              <div key={i} className="aura-panel p-5">
                 <h3 className="font-semibold mb-2" style={{ fontSize: 15 }}>
                   {item.q}
                 </h3>
@@ -165,7 +156,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>
               Data: 2022 Federal Reserve Survey of Consumer Finances.{" "}
-              <a href="/methodology" style={{ color: "var(--gold)", textDecoration: "none" }}>
+              <a href="/methodology" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
                 Methodology &rarr;
               </a>
             </p>
@@ -175,7 +166,7 @@ export default function Home() {
                 href="https://calcmoney.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--gold)", textDecoration: "none" }}
+                style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
                 CalcMoney.io
               </a>

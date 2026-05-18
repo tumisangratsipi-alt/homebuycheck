@@ -28,7 +28,7 @@ export default function MethodologyPage() {
             className="font-bold text-lg tracking-tight"
             style={{ color: "var(--text)", textDecoration: "none" }}
           >
-            <span className="gold-text">networth</span>rank.com
+            <span className="text-gradient-1">networth</span>rank.com
           </Link>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             Data: Federal Reserve 2022 SCF
@@ -62,7 +62,7 @@ export default function MethodologyPage() {
                 href="https://www.federalreserve.gov/econres/scfindex.htm"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--gold)", textDecoration: "none" }}
+                style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
                 Federal Reserve 2022 Survey of Consumer Finances (SCF)
               </a>
@@ -167,7 +167,7 @@ export default function MethodologyPage() {
                 href="https://calcmoney.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--gold)", textDecoration: "none" }}
+                style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
                 CalcMoney.io
               </a>
