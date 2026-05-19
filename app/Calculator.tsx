@@ -8,6 +8,8 @@ import {
   STATE_NAMES,
   type AffordabilityResult,
 } from "@/lib/affordability-data";
+import { resolveHomeBuyRoute, type HomeBuyRouteResult } from "@/lib/routingLogic";
+import { logTelemetry } from "@/actions/logTelemetry";
 
 const STATE_CODES = Object.keys(STATE_NAMES).sort((a, b) =>
   STATE_NAMES[a].localeCompare(STATE_NAMES[b])
@@ -215,6 +217,70 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
   );
 }
 
+function AffiliateCTA({ route }: { route: HomeBuyRouteResult }) {
+  if (route.recommendation === "rent") {
+    return (
+      <div
+        className="mt-6 p-4 rounded-xl"
+        style={{
+          background: "rgba(245,158,11,0.06)",
+          border: "1px solid rgba(245,158,11,0.25)",
+        }}
+      >
+        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#F59E0B" }}>
+          Based on your timeline
+        </p>
+        <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+          {route.sublabel}
+        </p>
+        <a
+          href="https://calcmoney.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+          style={{ background: "#F59E0B", color: "#09090B", textDecoration: "none" }}
+        >
+          {route.label} &rarr;
+        </a>
+      </div>
+    );
+  }
+  if (!route.url) return null;
+  return (
+    <div
+      className="mt-6 p-4 rounded-xl"
+      style={{
+        background: "rgba(14,165,233,0.06)",
+        border: "1px solid rgba(14,165,233,0.25)",
+      }}
+    >
+      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
+        Ready to buy
+      </p>
+      <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        {route.sublabel}
+      </p>
+      <a
+        href={route.url}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+        style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
+      >
+        {route.label} &rarr;
+      </a>
+    </div>
+  );
+}
+
+const TIME_HORIZON_OPTIONS = [
+  { label: "1-2 yrs", value: 1 },
+  { label: "3-4 yrs", value: 3 },
+  { label: "5-7 yrs", value: 5 },
+  { label: "8-10 yrs", value: 8 },
+  { label: "10+ yrs", value: 11 },
+] as const;
+
 export default function Calculator() {
   const [income, setIncome] = useState("");
   const [debts, setDebts] = useState("");
@@ -222,7 +288,9 @@ export default function Calculator() {
   const [rate, setRate] = useState("7.0");
   const [term, setTerm] = useState<15 | 30>(30);
   const [stateCode, setStateCode] = useState("");
+  const [timeHorizon, setTimeHorizon] = useState(5);
   const [result, setResult] = useState<AffordabilityResult | null>(null);
+  const [route, setRoute] = useState<HomeBuyRouteResult | null>(null);
   const [error, setError] = useState("");
 
   const parseNumber = (s: string) => parseFloat(s.replace(/[$,\s]/g, ""));
@@ -256,7 +324,21 @@ export default function Calculator() {
       stateCode,
     });
 
+    const routeResult = resolveHomeBuyRoute(timeHorizon);
     setResult(res);
+    setRoute(routeResult);
+
+    // Fire-and-forget telemetry
+    void logTelemetry({
+      annual_income: grossAnnualIncome,
+      monthly_debts: monthlyDebts,
+      down_payment: down,
+      interest_rate: parseFloat(rate),
+      loan_term_years: term,
+      time_horizon_years: timeHorizon,
+      state_code: stateCode,
+    });
+
     setTimeout(() => {
       document.getElementById("result")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -356,6 +438,35 @@ export default function Calculator() {
             />
           </div>
 
+          {/* Time horizon */}
+          <div>
+            <label className="terminal-label block mb-2">How long do you plan to stay?</label>
+            <div className="flex gap-2 flex-wrap">
+              {TIME_HORIZON_OPTIONS.map(({ label, value }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setTimeHorizon(value)}
+                  className="flex-1 py-2.5 rounded-md text-xs font-mono font-bold transition-all duration-150"
+                  style={{
+                    background: timeHorizon === value
+                      ? "rgba(14,165,233,0.2)"
+                      : "rgba(255,255,255,0.04)",
+                    color: timeHorizon === value ? "#38BDF8" : "var(--text-muted)",
+                    border: timeHorizon === value
+                      ? "1px solid rgba(14,165,233,0.5)"
+                      : "1px solid var(--border-default)",
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
+              Buying and selling within 5 years rarely covers transaction costs.
+            </p>
+          </div>
+
           {/* Loan term toggle */}
           <div>
             <label className="terminal-label block mb-2">Loan term</label>
@@ -418,6 +529,7 @@ export default function Calculator() {
 
       <div id="result">
         {result && <ResultCard result={result} />}
+        {route && <AffiliateCTA route={route} />}
       </div>
     </div>
   );
