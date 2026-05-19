@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://homebuycheck.com",
   },
+  verification: {
+    google: "XcwFVNpbar0dYrDMGH-KdwRb87FbDDLXJHgJQ5WNq58",
+  },
 };
 
 export default function RootLayout({
