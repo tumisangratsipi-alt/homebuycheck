@@ -1,6 +1,15 @@
 import type { MetadataRoute } from "next";
 
+const INCOME_TIERS = [50000, 60000, 75000, 80000, 100000, 120000, 150000, 200000, 250000, 300000];
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const incomePages: MetadataRoute.Sitemap = INCOME_TIERS.map((income) => ({
+    url: `https://homebuycheck.com/salary/${income}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: "https://homebuycheck.com",
@@ -14,5 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.5,
     },
+    ...incomePages,
   ];
 }

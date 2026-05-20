@@ -254,8 +254,8 @@ const TIME_HORIZON_OPTIONS = [
   { label: "10+ yrs", value: 11 },
 ] as const;
 
-export default function Calculator() {
-  const [income, setIncome] = useState("");
+export default function Calculator({ defaultIncome }: { defaultIncome?: number }) {
+  const [income, setIncome] = useState(defaultIncome ? String(defaultIncome) : "");
   const [debts, setDebts] = useState("");
   const [downPayment, setDownPayment] = useState("");
   const [rate, setRate] = useState("7.0");
