@@ -175,6 +175,8 @@ export default function Home() {
           </div>
           <p className="mt-3 text-xs">
             Not financial advice. Estimates are based on national averages and standard underwriting guidelines. Actual mortgage qualification may differ. &copy; {new Date().getFullYear()} homebuycheck.com
+            {" · "}
+            <a href="/privacy" style={{ color: "var(--amber-500)", textDecoration: "none" }}>Privacy</a>
           </p>
         </div>
       </footer>

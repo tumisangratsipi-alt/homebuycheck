@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
     url: "https://homebuycheck.com",
     siteName: "homebuycheck.com",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Home Affordability Calculator" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Home Affordability Calculator",
     description: "How much house can you afford? Enter your income and debts to find out.",
+    images: ["/og.png"],
   },
   alternates: {
     canonical: "https://homebuycheck.com",
@@ -32,9 +35,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        {children}
+        {adsenseId && (
+          <Script
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        )}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-PDXEK5JF9E" strategy="afterInteractive" />
+        <Script id="ga4-init" strategy="afterInteractive">{`
+          window.dataLayer=window.dataLayer||[];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js',new Date());
+          gtag('config','G-PDXEK5JF9E',{page_path:window.location.pathname});
+        `}</Script>
+      </body>
     </html>
   );
 }

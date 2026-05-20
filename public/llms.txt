@@ -1,0 +1,28 @@
+# homebuycheck.com
+> Free home affordability calculator. Find out how much house you can afford based on income, debts, and down payment.
+
+## What this tool does
+- Calculates maximum home purchase price based on the 28/36 DTI rule
+- Front-end ratio: housing costs should not exceed 28% of gross monthly income
+- Back-end ratio: total debt should not exceed 36% of gross monthly income
+- Accounts for down payment, property taxes, HOA, and insurance
+- Covers all 50 states
+
+## How it works
+The 28/36 rule is the standard used by most conventional mortgage lenders. The calculator finds the lower of:
+1. The maximum home price where PITI stays under 28% of gross income
+2. The maximum home price where all debt payments stay under 36% of gross income
+
+## Key facts
+- Every $1,000/month in existing debt reduces your max home price by roughly $150,000-$200,000
+- A 20% down payment eliminates PMI, saving ~$100-$200/month on a $400K home
+- At a 7% mortgage rate, a $500K home requires approximately $180,000 annual income to qualify comfortably
+
+## Tool URL
+https://homebuycheck.com
+
+## Related tools
+- Full financial calculator suite: https://calcmoney.io
+- Net worth percentile calculator: https://networthrank.com
+- Salary percentile calculator: https://salaryfact.com
+- Take-home pay calculator: https://netpaytool.com

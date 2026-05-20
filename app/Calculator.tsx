@@ -218,44 +218,17 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
 }
 
 function AffiliateCTA({ route }: { route: HomeBuyRouteResult }) {
-  if (route.recommendation === "rent") {
-    return (
-      <div
-        className="mt-6 p-4 rounded-xl"
-        style={{
-          background: "rgba(245,158,11,0.06)",
-          border: "1px solid rgba(245,158,11,0.25)",
-        }}
-      >
-        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#F59E0B" }}>
-          Based on your timeline
-        </p>
-        <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
-          {route.sublabel}
-        </p>
-        <a
-          href="https://calcmoney.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
-          style={{ background: "#F59E0B", color: "#09090B", textDecoration: "none" }}
-        >
-          {route.label} &rarr;
-        </a>
-      </div>
-    );
-  }
-  if (!route.url) return null;
+  const isRent = route.recommendation === "rent";
   return (
     <div
       className="mt-6 p-4 rounded-xl"
       style={{
-        background: "rgba(14,165,233,0.06)",
-        border: "1px solid rgba(14,165,233,0.25)",
+        background: isRent ? "rgba(245,158,11,0.06)" : "rgba(14,165,233,0.06)",
+        border: `1px solid ${isRent ? "rgba(245,158,11,0.25)" : "rgba(14,165,233,0.25)"}`,
       }}
     >
       <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
-        Ready to buy
+        {isRent ? "Based on your timeline" : "Ready to buy"}
       </p>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
         {route.sublabel}
