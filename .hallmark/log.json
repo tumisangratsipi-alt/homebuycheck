@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "scope": "app",
+  "design_system": "shared/design.md",
+  "runs": [
+    {
+      "date": "2026-05-22",
+      "verb": "redesign",
+      "site": "homebuycheck.com",
+      "macrostructure": "Workbench",
+      "genre": "atmospheric",
+      "theme": "dark-sky-void",
+      "accent": "oklch(74% 0.130 222)",
+      "fonts": ["DM Serif Display", "Inter"],
+      "changes": ["OKLCH token migration", "gold accent (matches CalcMoney brand)", "solid CTA", "removed static orbs", "result-glow", "overflow-x clip", "DM Serif + Inter fonts"],
+      "stamp": "/* Hallmark · macrostructure: Workbench · genre: atmospheric · design-system: shared/design.md */"
+    }
+  ]
+}
