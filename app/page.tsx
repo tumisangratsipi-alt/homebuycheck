@@ -133,6 +133,37 @@ export default function Home() {
         {/* Calculator */}
         <Calculator />
 
+        {/* Browse by income */}
+        <section className="mt-14">
+          <h2 className="text-xl font-bold mb-4">Affordability by salary</h2>
+          <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
+            See the exact home price range for common US salaries, pre-calculated using the 28/36 rule.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              { income: 50000,  label: "$50K salary" },
+              { income: 60000,  label: "$60K salary" },
+              { income: 75000,  label: "$75K salary" },
+              { income: 80000,  label: "$80K salary" },
+              { income: 100000, label: "$100K salary" },
+              { income: 120000, label: "$120K salary" },
+              { income: 150000, label: "$150K salary" },
+              { income: 200000, label: "$200K salary" },
+              { income: 250000, label: "$250K salary" },
+              { income: 300000, label: "$300K salary" },
+            ].map(({ income, label }) => (
+              <a
+                key={income}
+                href={`/salary/${income}`}
+                className="aura-panel p-4 text-sm hover:opacity-80 transition-opacity"
+                style={{ textDecoration: "none", color: "var(--text-primary)" }}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="mt-14">
           <h2 className="text-xl font-bold mb-6">Frequently asked questions</h2>
