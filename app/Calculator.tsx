@@ -238,7 +238,7 @@ function AffiliateCTA({ route }: { route: HomeBuyRouteResult }) {
         href={route.url}
         target="_blank"
         rel="noopener noreferrer sponsored"
-        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-all"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-[background-color,color,transform,opacity] duration-150 ease-out active:scale-[0.97]"
         style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
       >
         {route.label} &rarr;
@@ -345,7 +345,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setIncome(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
@@ -363,7 +363,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDebts(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
@@ -384,7 +384,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDownPayment(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
@@ -407,7 +407,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               value={rate}
               onChange={(e) => setRate(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
@@ -421,7 +421,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
                   key={value}
                   type="button"
                   onClick={() => setTimeHorizon(value)}
-                  className="flex-1 py-2.5 rounded-md text-xs font-mono font-bold transition-all duration-150"
+                  className="flex-1 py-2.5 rounded-md text-xs font-mono font-bold transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97]"
                   style={{
                     background: timeHorizon === value
                       ? "rgba(14,165,233,0.2)"
@@ -450,7 +450,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
                   key={t}
                   type="button"
                   onClick={() => setTerm(t)}
-                  className="flex-1 py-2.5 rounded-md text-sm font-mono font-bold transition-all duration-150"
+                  className="flex-1 py-2.5 rounded-md text-sm font-mono font-bold transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97]"
                   style={{
                     background: term === t
                       ? "linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%)"
@@ -471,7 +471,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
             <select
               value={stateCode}
               onChange={(e) => setStateCode(e.target.value)}
-              className="w-full rounded-md px-4 py-3 text-base transition-colors"
+              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid var(--border-default)",
@@ -555,7 +555,7 @@ function EmailCapture() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg px-4 py-2 text-sm font-semibold transition-opacity disabled:opacity-50"
+          className="rounded-lg px-4 py-2 text-sm font-semibold transition-[opacity,transform] duration-150 ease-out active:scale-[0.97] disabled:opacity-50"
           style={{ background: "var(--color-accent)", color: "#000" }}
         >
           {status === "loading" ? "..." : "Notify me"}
