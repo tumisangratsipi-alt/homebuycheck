@@ -324,7 +324,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
 
   const inputStyle = {
     background: "rgba(255,255,255,0.04)",
-    border: "1px solid var(--border-default)",
+    border: "1px solid rgba(212,175,55,0.20)",
     color: "var(--amber-400)",
   };
 
@@ -345,7 +345,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setIncome(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
@@ -363,7 +363,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDebts(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
@@ -384,7 +384,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDownPayment(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
@@ -407,7 +407,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               value={rate}
               onChange={(e) => setRate(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="w-full rounded-md px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
@@ -471,10 +471,10 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
             <select
               value={stateCode}
               onChange={(e) => setStateCode(e.target.value)}
-              className="w-full rounded-md px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={{
                 background: "rgba(255,255,255,0.04)",
-                border: "1px solid var(--border-default)",
+                border: "1px solid rgba(212,175,55,0.20)",
                 color: "var(--text-primary)",
               }}
             >
