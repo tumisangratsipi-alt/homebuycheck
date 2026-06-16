@@ -87,9 +87,9 @@ export default function Home() {
           </a>
           
             {/* Mobile: single CTA */}
-            <a href="https://calcmoney.io" target="_blank" rel="noopener" className="sm:hidden text-xs px-3 py-1 rounded-full font-semibold" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>More Tools →</a>
+            <a href="https://calcmoney.io/calculators/mortgage" target="_blank" rel="noopener" className="sm:hidden text-xs px-3 py-1 rounded-full font-semibold" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>More Tools →</a>
           <nav className="hidden sm:flex items-center gap-1 overflow-hidden">
-            <a href="https://calcmoney.io" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
+            <a href="https://calcmoney.io/calculators/mortgage" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-accent)", border: "1px solid var(--color-accent-dark)", textDecoration: "none" }}>CalcMoney.io</a>
             <a href="https://netpaytool.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Take-Home Pay</a>
             <a href="https://salaryfact.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Salary Rank</a>
             <a href="https://networthrank.com" target="_blank" rel="noopener" className="text-xs px-2.5 py-1 rounded-full transition-[color,border-color] duration-150 ease-out" style={{ color: "var(--color-ink-muted)", border: "1px solid var(--color-border)", textDecoration: "none" }}>Net Worth Rank</a>
@@ -201,7 +201,7 @@ export default function Home() {
             <p>
               More tools at{" "}
               <a
-                href="https://calcmoney.io"
+                href="https://calcmoney.io/calculators/mortgage"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}

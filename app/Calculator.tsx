@@ -199,14 +199,26 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
       {/* CTA */}
       <div className="mt-6 space-y-3">
         <a
-          href="https://calcmoney.io"
+          href="https://calcmoney.io/calculators/mortgage"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          More calculators at CalcMoney &rarr;
+          Run a full mortgage scenario &amp; amortization at CalcMoney &rarr;
         </a>
+
+        <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
+          <div className="flex flex-col gap-2">
+            <a href="https://salaryfact.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
+              SalaryFact — what salary do you need for this mortgage in your city? &rarr;
+            </a>
+            <a href="https://networthrank.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
+              NetWorthRank — does buying this home improve your wealth percentile? &rarr;
+            </a>
+          </div>
+        </div>
       </div>
 
       {hasPMI && (

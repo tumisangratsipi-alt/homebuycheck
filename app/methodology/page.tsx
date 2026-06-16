@@ -213,14 +213,14 @@ export default function MethodologyPage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p>Based on the 28/36 DTI rule and national averages.</p>
             <p>
-              More tools at{" "}
+              Mortgage calculator at{" "}
               <a
-                href="https://calcmoney.io"
+                href="https://calcmoney.io/calculators/mortgage"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--amber-500)", textDecoration: "none" }}
               >
-                CalcMoney.io
+                CalcMoney
               </a>
             </p>
           </div>
