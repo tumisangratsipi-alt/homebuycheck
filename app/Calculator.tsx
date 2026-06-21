@@ -11,6 +11,7 @@ import {
 import { resolveHomeBuyRoute, type HomeBuyRouteResult } from "@/lib/routingLogic";
 import { logTelemetry } from "@/actions/logTelemetry";
 import { captureEmail } from "@/actions/captureEmail";
+import { TermTooltip } from "@/app/TermTooltip";
 
 const STATE_CODES = Object.keys(STATE_NAMES).sort((a, b) =>
   STATE_NAMES[a].localeCompare(STATE_NAMES[b])
@@ -29,7 +30,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
   return (
     <div className="mt-4">
       <div className="flex justify-between mb-2">
-        <span className="terminal-label">Debt-to-income breakdown</span>
+        <span className="terminal-label"><TermTooltip term="DTI">Debt-to-income breakdown</TermTooltip></span>
         <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
           36% limit
         </span>
@@ -37,7 +38,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
       {/* Front-end DTI bar */}
       <div className="mb-3">
         <div className="flex justify-between mb-1">
-          <span className="terminal-label">Housing (front-end DTI)</span>
+          <span className="terminal-label"><TermTooltip term="DTI">Housing (front-end DTI)</TermTooltip></span>
           <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
             {formatPercent(result.frontEndDTI)} / 28% limit
           </span>
@@ -60,7 +61,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
       {/* Back-end DTI bar */}
       <div>
         <div className="flex justify-between mb-1">
-          <span className="terminal-label">Total debts (back-end DTI)</span>
+          <span className="terminal-label"><TermTooltip term="DTI">Total debts (back-end DTI)</TermTooltip></span>
           <span className="terminal-label" style={{ color: "var(--amber-500)" }}>
             {formatPercent(result.backEndDTI)} / 36% limit
           </span>
@@ -175,7 +176,7 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
         </div>
         {hasPMI && (
           <div className="flex justify-between items-center">
-            <span className="terminal-label">PMI (down &lt; 20%)</span>
+            <span className="terminal-label"><TermTooltip term="PMI">PMI (down &lt; 20%)</TermTooltip></span>
             <span className="tabular-gold text-sm">{formatCurrency(result.monthlyPMI)}/mo</span>
           </div>
         )}
@@ -183,7 +184,7 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
           className="flex justify-between items-center pt-2 mt-1"
           style={{ borderTop: "1px solid var(--border-subtle)" }}
         >
-          <span className="terminal-label">Total monthly PITI{hasPMI ? "+PMI" : ""}</span>
+          <span className="terminal-label"><TermTooltip term="PITI">Total monthly PITI{hasPMI ? "+PMI" : ""}</TermTooltip></span>
           <span
             className="font-bold font-mono text-sm"
             style={{ color: "var(--amber-500)" }}
