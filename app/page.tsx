@@ -101,8 +101,8 @@ export default function Home() {
         {/* Hero */}
         <div className="mb-8 text-center">
           <h1
-            className="font-black mb-3 leading-tight"
-            style={{ fontSize: "clamp(28px, 6vw, 42px)" }}
+            className="font-display mb-4 leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 8vw, 3.5rem)" }}
           >
             Home Affordability
             <br />
