@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const dmSerifDisplay = DM_Serif_Display({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+const clashDisplay = localFont({
+  src: "../assets/fonts/ClashDisplay-Semibold.ttf",
   variable: "--font-display",
   display: "swap",
 });
@@ -52,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSerifDisplay.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en" className={`${clashDisplay.variable} ${plusJakartaSans.variable}`}>
       <head>
         {/* @ts-expect-error impact.com requires non-standard value= attribute */}
         <meta name="impact-site-verification" value="ce1b51cb-8b0f-401e-8855-5e6f2a2e72a6" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   calculateAffordability,
   formatCurrency,
@@ -273,7 +273,20 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
   const [debts, setDebts] = useState("");
   const [downPayment, setDownPayment] = useState("");
   const [rate, setRate] = useState("7.0");
+  const [rateSource, setRateSource] = useState<"live" | "default">("default");
   const [term, setTerm] = useState<15 | 30>(30);
+
+  useEffect(() => {
+    fetch("https://calcmoney.io/api/market-pulse")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d?.mortgageRate30Y) {
+          setRate(Number(d.mortgageRate30Y).toFixed(2));
+          setRateSource("live");
+        }
+      })
+      .catch(() => {});
+  }, []);
   const [stateCode, setStateCode] = useState("");
   const [timeHorizon, setTimeHorizon] = useState(5);
   const [result, setResult] = useState<AffordabilityResult | null>(null);
@@ -344,6 +357,16 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
   return (
     <div>
       <div className="aura-panel p-6">
+        <div className="flex items-center justify-between pb-4 mb-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>
+            Home Affordability Calculator
+          </span>
+          <span className="inline-flex items-center gap-1 text-[8px] font-mono tracking-wide rounded px-1.5 py-0.5"
+            style={{ color: "var(--color-accent)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
+            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
+            Live data
+          </span>
+        </div>
         <div className="space-y-5">
           {/* Annual income */}
           <div>
@@ -407,8 +430,14 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
 
           {/* Interest rate */}
           <div>
-            <label className="terminal-label block mb-2">
+            <label className="terminal-label mb-2 flex items-center gap-2">
               Interest rate (%)
+              {rateSource === "live" && (
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black font-mono tracking-widest" style={{ background: "rgba(212,175,55,0.12)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.3)" }}>
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#D4AF37", display: "inline-block", boxShadow: "0 0 4px #D4AF37", animation: "pulse 2s infinite" }} />
+                  LIVE
+                </span>
+              )}
             </label>
             <input
               type="number"

@@ -79,7 +79,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <a
             href="/"
-            className="font-bold text-lg tracking-tight flex items-center gap-2"
+            className="font-display font-bold text-lg tracking-tight flex items-center gap-2"
             style={{ color: "var(--text-primary)", textDecoration: "none" }}
           >
             <img src="/logo.png" alt="HomeBuyCheck logo" style={{ height: "28px", width: "auto" }} />

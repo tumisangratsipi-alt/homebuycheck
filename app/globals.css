@@ -5,8 +5,8 @@
  * site: homebuycheck.com · theme: dark-sky-void · accent: sky */
 
 @theme {
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Clash Display", sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
   /* Backgrounds */
@@ -84,8 +84,8 @@
     --border-accent-hot: oklch(74% 0.130 222 / 0.50);
 
     /* Font tokens */
-    --font-display: "DM Serif Display", Georgia, serif;
-    --font-body:    "Inter", system-ui, sans-serif;
+    --font-display: "Clash Display", sans-serif;
+    --font-body:    "Plus Jakarta Sans", system-ui, sans-serif;
     --font-outlier: "JetBrains Mono", "Fira Code", monospace;
 
     /* Spacing — 4pt scale */
