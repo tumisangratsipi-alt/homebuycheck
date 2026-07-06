@@ -206,7 +206,7 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
           className="btn-orbital block w-full text-center py-3"
           style={{ textDecoration: "none" }}
         >
-          Run a full mortgage scenario &amp; amortization at CalcMoney &rarr;
+          Total interest on your {formatCurrency(result.loanAmount)} loan over 30 years at CalcMoney &rarr;
         </a>
 
         <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>

@@ -438,12 +438,14 @@ export default async function CityAffordabilityPage({
                 Methodology &rarr;
               </a>
             </p>
-            <p>
-              More tools at{" "}
-              <a href="https://calcmoney.io" target="_blank" rel="noopener noreferrer" style={{ color: "var(--amber-500)", textDecoration: "none" }}>
-                calcmoney.io
-              </a>
-            </p>
+            <a
+              href="https://calcmoney.io/calculators/mortgage"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", padding: "5px 12px", borderRadius: "999px", background: "rgba(212,175,55,0.1)", color: "var(--amber-500)", border: "1px solid rgba(212,175,55,0.25)", textDecoration: "none", fontSize: "12px", fontWeight: 600 }}
+            >
+              Full amortization and rate comparison at CalcMoney &rarr;
+            </a>
           </div>
           <p className="mt-3 text-xs">
             Results are estimates for informational purposes only. Consult a licensed financial professional before making financial decisions.
