@@ -7,7 +7,11 @@ const URLS = {
     process.env.NEXT_PUBLIC_LENDING_TREE_URL ?? "https://calcmoney.io/go/lending-tree",
   betterment:
     process.env.NEXT_PUBLIC_BETTERMENT_URL ?? "https://calcmoney.io/go/betterment",
+  choiceHomeWarranty:
+    process.env.NEXT_PUBLIC_CHOICE_HOME_WARRANTY_URL ?? "https://calcmoney.io/go/choice-home-warranty",
 } as const;
+
+export { URLS };
 
 export interface HomeBuyRouteResult {
   recommendation: "rent" | "buy";

@@ -8,7 +8,7 @@ import {
   STATE_NAMES,
   type AffordabilityResult,
 } from "@/lib/affordability-data";
-import { resolveHomeBuyRoute, type HomeBuyRouteResult } from "@/lib/routingLogic";
+import { resolveHomeBuyRoute, URLS, type HomeBuyRouteResult } from "@/lib/routingLogic";
 import { logTelemetry } from "@/actions/logTelemetry";
 import { captureEmail } from "@/actions/captureEmail";
 import { TermTooltip } from "@/app/TermTooltip";
@@ -255,6 +255,34 @@ function AffiliateCTA({ route }: { route: HomeBuyRouteResult }) {
         style={{ background: route.colorHex, color: "#09090B", textDecoration: "none" }}
       >
         {route.label} &rarr;
+      </a>
+    </div>
+  );
+}
+
+function HomeWarrantyCTA() {
+  return (
+    <div
+      className="mt-4 p-4 rounded-xl"
+      style={{
+        background: "rgba(56,189,248,0.06)",
+        border: "1px solid rgba(56,189,248,0.25)",
+      }}
+    >
+      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#38BDF8" }}>
+        Protect what you're buying
+      </p>
+      <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        Choice Home Warranty covers AC, heating, water heater, and major appliances when they break down, separate from homeowners insurance.
+      </p>
+      <a
+        href={URLS.choiceHomeWarranty}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        className="block w-full text-center py-3 rounded-lg font-bold text-sm transition-[background-color,color,transform,opacity] duration-150 ease-out active:scale-[0.97]"
+        style={{ background: "#38BDF8", color: "#09090B", textDecoration: "none" }}
+      >
+        See Coverage Options &rarr;
       </a>
     </div>
   );
@@ -546,6 +574,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
       <div id="result">
         {result && <ResultCard result={result} />}
         {route && <AffiliateCTA route={route} />}
+        {result && <HomeWarrantyCTA />}
         {result && <EmailCapture />}
       </div>
     </div>
