@@ -195,7 +195,7 @@ export default async function CityAffordabilityPage({
 
         {/* AEO summary card */}
         <div className="gradient-border-result rounded-xl p-6 mb-8">
-          <p className="terminal-label mb-4">{city.name}, {city.stateCode} — 2024 snapshot</p>
+          <p className="terminal-label mb-4">{city.name}, {city.stateCode} — current snapshot</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { label: "Median home price", amount: city.medianHomePrice },
