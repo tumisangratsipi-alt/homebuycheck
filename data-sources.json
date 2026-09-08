@@ -1,0 +1,51 @@
+{
+  "_readme": "Provenance manifest for every hardcoded real-world fact in this repo's calculators. Each entry names the real external source, its real update cadence, when it was last verified against that source (by whom/what commit), whether an automated check exists, and that check's actual verified status. Update this file in the same commit as any data fix. Do not add an entry with a fabricated or unverified source - if a fact's real source hasn't been checked, mark automated_check.status as \"missing\" and last_verified.method as \"never independently verified\", don't invent a plausible-looking entry.",
+  "repo": "homebuycheck",
+  "manifest_created": "2026-09-08",
+  "entries": [
+    {
+      "id": "city-home-price-tax-income",
+      "file": "lib/city-data.ts",
+      "fields": ["medianHomePrice", "propertyTaxRate", "medianHouseholdIncome"],
+      "description": "Per-city home price, property tax rate, and median household income for all 181 covered metros, feeding both the static city pages and (via lib/affordability-data.ts) the interactive calculator.",
+      "real_source": {
+        "name": "medianHomePrice/medianHouseholdIncome reused from networthrank's real Zillow ZHVI + HUD FY2026 Section 8 Income Limits audit (identical 181 city/state pairs); propertyTaxRate is a real state-level effective rate from Tax Foundation's 'Property Taxes by State and County, 2026' report",
+        "url": "https://files.zillowstatic.com/research/public_csvs/zhvi/, https://www.huduser.gov/portal/datasets/il.html, https://taxfoundation.org/data/all/state/property-taxes-by-state-county/",
+        "real_cadence": "Zillow ZHVI monthly, HUD income limits annual (spring), Tax Foundation property tax table annual (though the underlying rate is a Census ACS 5-year estimate, so real-world year-to-year movement in the published rate itself is small and slow)"
+      },
+      "last_verified": {
+        "date": "2026-09-08",
+        "commit": "e995560",
+        "method": "manual audit - real Zillow/HUD figures reused directly from networthrank's already-verified city-data.ts (matched on (name, stateCode), not name alone, since 4 city names repeat across different states in this list); real Tax Foundation state property tax table downloaded and matched per state"
+      },
+      "automated_check": {
+        "exists": false,
+        "status": "missing",
+        "note": "No workflow exists for this repo at all - this is the newest satellite to get a real-data pass and never had one built. Given this reuses networthrank's home price/income data, keeping this file in sync with networthrank's own future updates (not just re-checking Zillow/HUD independently) is the more direct freshness signal to watch for."
+      },
+      "next_check_due": "2026-10-08"
+    },
+    {
+      "id": "interactive-calculator-state-property-tax",
+      "file": "lib/affordability-data.ts",
+      "fields": ["STATE_PROPERTY_TAX_RATES"],
+      "description": "Same real state-level property tax rates as the city-data.ts entry above, applied inside the interactive affordability calculator's own PITI math (previously a flat 1.1% national-average placeholder).",
+      "real_source": {
+        "name": "Tax Foundation, \"Property Taxes by State and County, 2026\" (2024 ACS 5-year estimate)",
+        "url": "https://taxfoundation.org/data/all/state/property-taxes-by-state-county/",
+        "real_cadence": "annual, though the underlying rate is a Census ACS 5-year estimate and moves slowly year to year"
+      },
+      "last_verified": {
+        "date": "2026-09-08",
+        "commit": "e995560",
+        "method": "manual audit - same real Tax Foundation table as the city-data.ts entry, duplicated into this file's own constant since it's a separate calculation path"
+      },
+      "automated_check": {
+        "exists": false,
+        "status": "missing",
+        "note": "This table is a literal duplicate of city-data.ts's per-state rates. Worth de-duplicating into one shared source in a future pass so there's only one place to keep current, not two."
+      },
+      "next_check_due": "2026-10-08"
+    }
+  ]
+}
