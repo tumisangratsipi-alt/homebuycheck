@@ -19,9 +19,11 @@
         "method": "manual audit - real Zillow/HUD figures reused directly from networthrank's already-verified city-data.ts (matched on (name, stateCode), not name alone, since 4 city names repeat across different states in this list); real Tax Foundation state property tax table downloaded and matched per state"
       },
       "automated_check": {
-        "exists": false,
-        "status": "missing",
-        "note": "No workflow exists for this repo at all - this is the newest satellite to get a real-data pass and never had one built. Given this reuses networthrank's home price/income data, keeping this file in sync with networthrank's own future updates (not just re-checking Zillow/HUD independently) is the more direct freshness signal to watch for."
+        "exists": true,
+        "workflow": ".github/workflows/data-freshness-check.yml",
+        "status_verified_on": "2026-09-08",
+        "status": "reminder-only",
+        "note": "As of 2026-09-08, the generic data-freshness-check.yml job Slack-alerts monthly once next_check_due passes. It does not fetch Zillow/HUD data itself, it only reminds a human to re-run the manual audit. Given this reuses networthrank's home price/income data, keeping this file in sync with networthrank's own future updates (not just re-checking Zillow/HUD independently) is still the more direct freshness signal to watch for."
       },
       "next_check_due": "2026-10-08"
     },
@@ -41,9 +43,11 @@
         "method": "manual audit - same real Tax Foundation table as the city-data.ts entry, duplicated into this file's own constant since it's a separate calculation path"
       },
       "automated_check": {
-        "exists": false,
-        "status": "missing",
-        "note": "This table is a literal duplicate of city-data.ts's per-state rates. Worth de-duplicating into one shared source in a future pass so there's only one place to keep current, not two."
+        "exists": true,
+        "workflow": ".github/workflows/data-freshness-check.yml",
+        "status_verified_on": "2026-09-08",
+        "status": "reminder-only",
+        "note": "As of 2026-09-08, the generic data-freshness-check.yml job Slack-alerts monthly once next_check_due passes; it does not verify Tax Foundation's real data itself. This table is still a literal duplicate of city-data.ts's per-state rates - worth de-duplicating into one shared source in a future pass so there's only one place to keep current, not two."
       },
       "next_check_due": "2026-10-08"
     }
