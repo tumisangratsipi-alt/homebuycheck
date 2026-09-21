@@ -49,6 +49,12 @@ export const metadata: Metadata = {
   },
 };
 
+// Prerendered HTML otherwise ships with s-maxage=31536000. The CDN then keeps a
+// copy across deploys that points at _next/static chunks that no longer exist,
+// so the page never hydrates and the AdSense and GA scripts never run. One hour
+// bounds how long a stale copy can live. Still clear the CDN cache after deploys.
+export const revalidate = 3600;
+
 export default function RootLayout({
   children,
 }: Readonly<{
