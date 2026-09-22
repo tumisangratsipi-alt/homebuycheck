@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     google: "XcwFVNpbar0dYrDMGH-KdwRb87FbDDLXJHgJQ5WNq58",
   },
   other: {
+    "google-adsense-account": "ca-pub-1046440660422479",
     "verify-admitad": "8c8e219271",
     "mitgo-verification": "2362dc91-98be-4bd6-ae20-7cea2ba611b3",
   },
