@@ -18,7 +18,7 @@ const faqItems = [
   },
   {
     q: "What other costs should I budget for beyond the mortgage?",
-    a: "Monthly homeownership costs go well beyond principal and interest. This calculator already estimates property taxes (1.1% annually, national average), homeowner's insurance (0.5% annually), and PMI if applicable. Beyond those, you should budget for HOA fees if the community has one (can range from $100 to $1,000+ per month), closing costs (typically 2-5% of the loan amount), maintenance (most experts recommend budgeting 1% of home value annually), and utilities. These can meaningfully affect your real affordability.",
+    a: "Monthly homeownership costs go well beyond principal and interest. This calculator already estimates property taxes (your state's average effective rate, from Tax Foundation 2026 data), homeowner's insurance (0.5% annually), and PMI if applicable. Beyond those, you should budget for HOA fees if the community has one (can range from $100 to $1,000+ per month), closing costs (typically 2-5% of the loan amount), maintenance (most experts recommend budgeting 1% of home value annually), and utilities. These can meaningfully affect your real affordability.",
   },
   {
     q: "Should I get pre-approved before using this calculator?",
