@@ -1,22 +1,35 @@
 # homebuycheck.com
-> Free home affordability calculator. Find out how much house you can afford based on income, debts, and down payment.
+> Free home affordability calculator. Find out how much house you can afford from your income, debts and down payment, using the 28/36 rule.
 
 ## What this tool does
-- Calculates maximum home purchase price based on the 28/36 DTI rule
-- Front-end ratio: housing costs should not exceed 28% of gross monthly income
-- Back-end ratio: total debt should not exceed 36% of gross monthly income
-- Accounts for down payment, property taxes, HOA, and insurance
-- Covers all 50 states
+- Calculates the maximum home price at which housing costs stay under 28% of gross monthly income and total debt payments stay under 36%
+- Models principal and interest, state property tax, homeowner's insurance (0.5% of the home price a year) and PMI (0.5% of the loan a year when the down payment is under 20%)
+- Covers all 50 states plus DC
+- Inputs: gross annual income, monthly debts, down payment, interest rate, a 15 or 30 year term, and state
 
 ## How it works
 The 28/36 rule is the standard used by most conventional mortgage lenders. The calculator finds the lower of:
-1. The maximum home price where PITI stays under 28% of gross income
-2. The maximum home price where all debt payments stay under 36% of gross income
+1. The maximum home price where the full housing payment (principal, interest, property tax, insurance, PMI) stays under 28% of gross monthly income
+2. The maximum home price where that payment plus existing monthly debts stays under 36% of gross monthly income
 
-## Key facts
-- Every $1,000/month in existing debt reduces your max home price by roughly $150,000-$200,000
-- A 20% down payment eliminates PMI, saving ~$100-$200/month on a $400K home
-- At a 7% mortgage rate, a $500K home requires approximately $180,000 annual income to qualify comfortably
+## Data sources
+- State property tax: Tax Foundation, "Property Taxes by State and County, 2026" (2024 American Community Survey 5-year estimates), applied as each state's effective rate
+- City pages: Zillow Home Value Index for median home prices and HUD FY2026 Section 8 Income Limits for median household income
+- The interest rate and down payment are your inputs. Insurance and PMI are the calculator's own assumptions, not quotes
+
+## Key facts (computed by this calculator at a 7% rate, 30 year term, no other debts)
+- A $500,000 home with 20% down needs about $128,000 to $156,000 of annual income, depending on the state's property tax
+- With 5% down the same home needs about $158,000 to $186,000, because PMI is added
+- When the 36% limit is the one that binds, each extra $1,000 a month of debt payments lowers the maximum price by about $116,000 to $125,000
+- On a $400,000 home, 20% down instead of 5% to 10% removes about $150 to $160 a month of PMI
+
+## Page types
+- City pages: https://homebuycheck.com/city/{slug} (181 metros; example /city/houston)
+- Income pages: https://homebuycheck.com/salary/{income} (10 incomes from $50,000 to $300,000; example /salary/100000). These assume no other debts, a 30 year mortgage and the Texas average property tax rate
+- Methodology: https://homebuycheck.com/methodology
+
+## Not supported
+The calculator does not accept URL parameters. Link to the city or income page you mean.
 
 ## Tool URL
 https://homebuycheck.com

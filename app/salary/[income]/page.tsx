@@ -3,6 +3,7 @@ import Calculator from "@/app/Calculator";
 import {
   calculateAffordability,
   formatCurrency,
+  STATE_PROPERTY_TAX_RATES,
 } from "@/lib/affordability-data";
 
 export const dynamic = "force-static";
@@ -310,7 +311,7 @@ export default async function SalaryAffordabilityPage({
             </div>
           ))}
           <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-            Assumes no existing monthly debts and 30-year fixed mortgage. Property tax estimated at 1.1% annually. Homeowner insurance at 0.5%. PMI at 0.5% of loan for down payments below 20%.
+            Assumes no existing monthly debts and 30-year fixed mortgage. Property tax estimated at {(STATE_PROPERTY_TAX_RATES.TX * 100).toFixed(1)}% annually, the Texas average effective rate. Homeowner insurance at 0.5%. PMI at 0.5% of loan for down payments below 20%.
           </p>
         </section>
 
