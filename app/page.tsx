@@ -2,7 +2,7 @@ import Calculator from "./Calculator";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home Affordability Calculator — How Much House Can You Afford?",
+  title: "Home Affordability Calculator: How Much House Can You Afford?",
   description:
     "Find out how much home you can afford based on your income, debts, and down payment. All 50 states. Free calculator, no sign-up.",
 };
@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "What is the 28/36 rule for buying a home?",
-    a: "The 28/36 rule is the standard lenders use to evaluate whether you can afford a mortgage. The front-end ratio (28%) means your total monthly housing costs — principal, interest, property taxes, and insurance (PITI) — should not exceed 28% of your gross monthly income. The back-end ratio (36%) means all monthly debt payments combined, including housing and any existing debts like car loans or student loans, should not exceed 36% of gross monthly income. This calculator uses both limits and applies the more conservative of the two.",
+    a: "The 28/36 rule is the standard lenders use to evaluate whether you can afford a mortgage. The front-end ratio (28%) means your total monthly housing costs (principal, interest, property taxes, and insurance (PITI)) should not exceed 28% of your gross monthly income. The back-end ratio (36%) means all monthly debt payments combined, including housing and any existing debts like car loans or student loans, should not exceed 36% of gross monthly income. This calculator uses both limits and applies the more conservative of the two.",
   },
   {
     q: "How does my down payment affect what I can afford?",
-    a: "A larger down payment directly increases the home price you can afford by reducing the loan amount — which lowers your monthly principal and interest payment. It also reduces or eliminates private mortgage insurance (PMI), which is required when your down payment is less than 20% of the home price. PMI typically costs 0.5% to 1% of the loan amount annually. A 20% down payment removes that cost entirely and gives you immediate equity in the home.",
+    a: "A larger down payment directly increases the home price you can afford by reducing the loan amount, which lowers your monthly principal and interest payment. It also reduces or eliminates private mortgage insurance (PMI), which is required when your down payment is less than 20% of the home price. PMI typically costs 0.5% to 1% of the loan amount annually. A 20% down payment removes that cost entirely and gives you immediate equity in the home.",
   },
   {
     q: "What other costs should I budget for beyond the mortgage?",
@@ -22,7 +22,7 @@ const faqItems = [
   },
   {
     q: "Should I get pre-approved before using this calculator?",
-    a: "Yes. This calculator gives you a solid estimate based on the 28/36 rule, but a mortgage pre-approval from a lender is the definitive number. Pre-approval involves a hard credit pull and a full review of your income, assets, and debts. Lenders may use different underwriting standards, offer different rates based on your credit score, and account for factors this calculator cannot — such as employment history, type of income (W-2 vs. self-employed), and the specific loan product. Use this calculator to understand your range, then get pre-approved to confirm the real number.",
+    a: "Yes. This calculator gives you a solid estimate based on the 28/36 rule, but a mortgage pre-approval from a lender is the definitive number. Pre-approval involves a hard credit pull and a full review of your income, assets, and debts. Lenders may use different underwriting standards, offer different rates based on your credit score, and account for factors this calculator cannot, such as employment history, type of income (W-2 vs. self-employed), and the specific loan product. Use this calculator to understand your range, then get pre-approved to confirm the real number.",
   },
 ];
 

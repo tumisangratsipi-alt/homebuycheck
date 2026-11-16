@@ -4,7 +4,7 @@ import Link from "next/link";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Methodology — Home Affordability Calculator",
+  title: "Methodology: Home Affordability Calculator",
   description:
     "How the home affordability calculator works: 28/36 DTI rule, property tax estimates, PMI calculation, and limitations.",
   alternates: {
@@ -48,7 +48,7 @@ export default function MethodologyPage() {
           &larr; Back to calculator
         </Link>
 
-        <h1 className="text-3xl font-black mb-2">Methodology</h1>
+        <h1 className="text-3xl font-semibold mb-2">Methodology</h1>
         <p className="text-sm mb-10" style={{ color: "var(--text-muted)" }}>
           How this home affordability calculator works and what it does not cover.
         </p>
@@ -65,13 +65,13 @@ export default function MethodologyPage() {
             </p>
             <p className="mt-3">
               The <strong style={{ color: "var(--text-secondary)" }}>front-end ratio (28%)</strong> limits
-              total monthly housing costs — principal, interest, property taxes, and insurance (PITI)
-              — to no more than 28% of gross monthly income.
+              total monthly housing costs: principal, interest, property taxes, and insurance (PITI)
+             : to no more than 28% of gross monthly income.
             </p>
             <p className="mt-3">
               The <strong style={{ color: "var(--text-secondary)" }}>back-end ratio (36%)</strong> limits
-              all monthly debt obligations — housing costs plus existing debts like car loans,
-              student loans, and minimum credit card payments — to no more than 36% of gross
+              all monthly debt obligations: housing costs plus existing debts like car loans,
+              student loans, and minimum credit card payments: to no more than 36% of gross
               monthly income.
             </p>
             <p className="mt-3">
@@ -113,7 +113,7 @@ export default function MethodologyPage() {
             <p className="mt-3">
               Actual rates vary significantly by state and county. Texas, Illinois, and New
               Jersey have effective rates above 2%. Hawaii, Alabama, and Colorado are below 0.5%.
-              The state dropdown is provided for context — this version does not apply
+              The state dropdown is provided for context: this version does not apply
               state-specific tax rates. For state-level accuracy, verify the effective rate
               for your target county.
             </p>
@@ -127,7 +127,7 @@ export default function MethodologyPage() {
               Private mortgage insurance (PMI) is added when the down payment is less than 20%
               of the home price. PMI is estimated at <strong style={{ color: "var(--text-secondary)" }}>0.5% of the loan amount annually</strong>,
               divided by 12 for the monthly cost. Actual PMI rates depend on your credit
-              score, loan type, and lender — typical range is 0.5% to 1.5% annually.
+              score, loan type, and lender: typical range is 0.5% to 1.5% annually.
             </p>
             <p className="mt-3">
               PMI can be removed once your loan-to-value ratio reaches 80% (20% equity). You
@@ -166,7 +166,7 @@ export default function MethodologyPage() {
               </li>
               <li>
                 Credit score is not factored in. Your actual interest rate depends heavily
-                on your credit score — rates for excellent credit may be 1-2% lower than
+                on your credit score: rates for excellent credit may be 1-2% lower than
                 the default input.
               </li>
               <li>

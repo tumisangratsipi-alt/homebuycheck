@@ -81,7 +81,7 @@ export function TermTooltip({ term, children, side = "top" }: TermTooltipProps) 
                 fontSize: 10,
                 fontFamily: "monospace",
                 fontWeight: 900,
-                textTransform: "uppercase",
+                textTransform: "",
                 letterSpacing: "0.18em",
                 color: "rgba(212,175,55,0.9)",
                 marginBottom: 6,

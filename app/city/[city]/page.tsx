@@ -29,7 +29,7 @@ export async function generateMetadata({
       canonical: `https://homebuycheck.com/city/${slug}`,
     },
     openGraph: {
-      title: `${city.name} Home Affordability — Can You Afford It?`,
+      title: `${city.name} Home Affordability: Can You Afford It?`,
       description: `Median home price: ${formatCurrency(city.medianHomePrice)}. Required income at 6.5%: ${formatCurrency(requiredIncome)}/year. 28/36 DTI rule applied.`,
       url: `https://homebuycheck.com/city/${slug}`,
     },
@@ -179,7 +179,7 @@ export default async function CityAffordabilityPage({
 
         {/* Hero */}
         <div className="mb-8">
-          <h1 className="font-black mb-3 leading-tight" style={{ fontSize: "clamp(22px, 5vw, 36px)" }}>
+          <h1 className="font-semibold mb-3 leading-tight" style={{ fontSize: "clamp(22px, 5vw, 36px)" }}>
             Can I Afford a Home
             <br />
             <span className="text-gradient-1">in {city.name}?</span>
@@ -195,7 +195,7 @@ export default async function CityAffordabilityPage({
 
         {/* AEO summary card */}
         <div className="gradient-border-result rounded-xl p-6 mb-8">
-          <p className="terminal-label mb-4">{city.name}, {city.stateCode} — current snapshot</p>
+          <p className="terminal-label mb-4">{city.name}, {city.stateCode}: current snapshot</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { label: "Median home price", amount: city.medianHomePrice },
@@ -229,7 +229,7 @@ export default async function CityAffordabilityPage({
             border: isAffordable ? "1px solid rgba(34,197,94,0.25)" : "1px solid rgba(212,175,55,0.25)",
           }}
         >
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: isAffordable ? "#4ade80" : "var(--amber-500)" }}>
+          <p className="text-xs font-bold mb-2" style={{ color: isAffordable ? "#4ade80" : "var(--amber-500)" }}>
             {isAffordable ? "Attainable for median earners" : "Income gap vs. median earners"}
           </p>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -242,7 +242,7 @@ export default async function CityAffordabilityPage({
 
         {/* Monthly payment breakdown */}
         <section className="mb-10">
-          <h2 className="text-lg font-bold mb-4">Monthly payment breakdown — {city.name}</h2>
+          <h2 className="text-lg font-bold mb-4">Monthly payment breakdown: {city.name}</h2>
           <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>
             Median home price {formatCurrency(city.medianHomePrice)}, 25% down ({formatCurrency(downPayment25)}), 6.5% rate, 30-year fixed.
           </p>
@@ -336,7 +336,7 @@ export default async function CityAffordabilityPage({
           className="mb-8 p-5 rounded-xl"
           style={{ background: "rgba(255,255,255,0.03)", border: "1px solid var(--border-subtle)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: "var(--text-muted)" }}>
+          <p className="text-xs font-bold mb-3" style={{ color: "var(--text-muted)" }}>
             Check your specific salary
           </p>
           <p className="text-sm mb-3" style={{ color: "var(--text-secondary)" }}>

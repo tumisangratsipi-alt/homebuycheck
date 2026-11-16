@@ -48,7 +48,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
           style={{ background: "rgba(255,255,255,0.06)" }}
         >
           <div
-            className="h-full rounded-full transition-all duration-700"
+            className="h-full rounded-full transition-[width] duration-700"
             style={{
               width: `${Math.min(result.frontEndDTI / 28 * 100, 100)}%`,
               background: result.frontEndDTI > 28
@@ -72,7 +72,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
         >
           {/* Housing portion */}
           <div
-            className="absolute left-0 top-0 h-full transition-all duration-700"
+            className="absolute left-0 top-0 h-full transition-colors duration-700"
             style={{
               width: `${Math.min(housingPct / 36 * 100, 100)}%`,
               background: "linear-gradient(90deg, #0EA5E9, #38BDF8)",
@@ -82,7 +82,7 @@ function DTIBar({ result }: { result: AffordabilityResult }) {
           {/* Other debts portion */}
           {otherDebtPct > 0.5 && (
             <div
-              className="absolute top-0 h-full transition-all duration-700"
+              className="absolute top-0 h-full transition-colors duration-700"
               style={{
                 left: `${Math.min(housingPct / 36 * 100, 100)}%`,
                 width: `${Math.min(otherDebtPct / 36 * 100, 100)}%`,
@@ -124,7 +124,7 @@ function AffordabilityBadge({ rating }: { rating: AffordabilityResult["affordabi
 
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-mono uppercase tracking-wider"
+      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-mono"
       style={{ color: config.color, background: config.bg, border: `1px solid ${config.color}33` }}
     >
       <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: config.color }} />
@@ -149,7 +149,7 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
           Max home price in {result.stateName}
         </p>
         <p
-          className="text-gradient-1 font-black leading-none glow-amber"
+          className="text-gradient-1 font-semibold leading-none"
           style={{ fontSize: "clamp(48px, 12vw, 84px)" }}
         >
           {formatCurrency(result.maxHomePrice)}
@@ -210,13 +210,13 @@ function ResultCard({ result }: { result: AffordabilityResult }) {
         </a>
 
         <div className="pt-3 border-t" style={{ borderColor: "var(--border-subtle, rgba(255,255,255,0.06))" }}>
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
+          <p className="text-xs font-bold mb-2" style={{ color: "var(--text-muted)" }}>Related tools</p>
           <div className="flex flex-col gap-2">
             <a href="https://salaryfact.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
-              SalaryFact — what salary do you need for this mortgage in your city? &rarr;
+              SalaryFact: what salary do you need for this mortgage in your city? &rarr;
             </a>
             <a href="https://networthrank.com" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
-              NetWorthRank — does buying this home improve your wealth percentile? &rarr;
+              NetWorthRank: does buying this home improve your wealth percentile? &rarr;
             </a>
           </div>
         </div>
@@ -241,7 +241,7 @@ function AffiliateCTA({ route }: { route: HomeBuyRouteResult }) {
         border: `1px solid ${isRent ? "rgba(245,158,11,0.25)" : "rgba(14,165,233,0.25)"}`,
       }}
     >
-      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: route.colorHex }}>
+      <p className="text-xs font-bold mb-1" style={{ color: route.colorHex }}>
         {isRent ? "Based on your timeline" : "Ready to buy"}
       </p>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
@@ -269,7 +269,7 @@ function HomeWarrantyCTA() {
         border: "1px solid rgba(56,189,248,0.25)",
       }}
     >
-      <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#38BDF8" }}>
+      <p className="text-xs font-bold mb-1" style={{ color: "#38BDF8" }}>
         Protect what you're buying
       </p>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "var(--text-muted)" }}>
@@ -386,10 +386,10 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
     <div>
       <div className="aura-panel p-6">
         <div className="flex items-center justify-between pb-4 mb-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <span className="text-xs font-mono font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
             Home Affordability Calculator
           </span>
-          <span className="inline-flex items-center gap-1 text-[8px] font-mono tracking-wide rounded px-1.5 py-0.5"
+          <span className="inline-flex items-center gap-1 text-xs font-mono rounded px-1.5 py-0.5"
             style={{ color: "var(--color-accent)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block" }} />
             Live data
@@ -409,7 +409,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setIncome(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
@@ -427,11 +427,11 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDebts(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-              Do not include rent — only recurring debt obligations.
+              Do not include rent: only recurring debt obligations.
             </p>
           </div>
 
@@ -448,7 +448,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               onChange={(e) => setDownPayment(e.target.value)}
               onKeyDown={handleKeyDown}
               autoComplete="off"
-              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
             <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
@@ -461,7 +461,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
             <label className="terminal-label mb-2 flex items-center gap-2">
               Interest rate (%)
               {rateSource === "live" && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black font-mono tracking-widest" style={{ background: "rgba(212,175,55,0.12)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.3)" }}>
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-semibold font-mono" style={{ background: "rgba(212,175,55,0.12)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.3)" }}>
                   <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#D4AF37", display: "inline-block", boxShadow: "0 0 4px #D4AF37", animation: "pulse 2s infinite" }} />
                   LIVE
                 </span>
@@ -477,7 +477,7 @@ export default function Calculator({ defaultIncome }: { defaultIncome?: number }
               value={rate}
               onChange={(e) => setRate(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="w-full rounded-lg px-4 py-3 text-base font-mono tracking-wider transition-[color,box-shadow,border-color] duration-150 ease-out"
+              className="w-full rounded-lg px-4 py-3 text-base font-mono transition-[color,box-shadow,border-color] duration-150 ease-out"
               style={inputStyle}
             />
           </div>
