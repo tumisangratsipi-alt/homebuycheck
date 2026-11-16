@@ -18,7 +18,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Home Affordability Calculator — How Much House Can You Afford?",
+  title: "Home Affordability Calculator: How Much House Can You Afford?",
   description:
     "Find out how much home you can afford based on your income, debts, and down payment. All 50 states. Free calculator, no sign-up.",
   metadataBase: new URL("https://homebuycheck.com"),

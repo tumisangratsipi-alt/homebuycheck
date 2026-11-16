@@ -53,7 +53,7 @@ export async function generateMetadata({
       canonical: `https://homebuycheck.com/salary/${slug}`,
     },
     openGraph: {
-      title: `${gross} Salary — Home Affordability Calculator`,
+      title: `${gross} Salary: Home Affordability Calculator`,
       description: `How much house can you afford on ${gross}? See the 28/36 DTI rule applied to your income.`,
       url: `https://homebuycheck.com/salary/${slug}`,
     },
@@ -183,7 +183,7 @@ export default async function SalaryAffordabilityPage({
         name: `Can I afford a house on ${grossK} with existing debt?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Yes, but existing debts reduce your maximum home price. The back-end DTI limit of 36% means all monthly debts combined — car payment, student loans, credit cards, and your new mortgage — cannot exceed ${formatCurrency(dti.maxTotalDebt)}/month. Each $500/month in existing debts reduces your maximum home price by approximately $70,000-$90,000 at today's rates. Use the calculator above to enter your actual debt load.`,
+          text: `Yes, but existing debts reduce your maximum home price. The back-end DTI limit of 36% means all monthly debts combined (car payment, student loans, credit cards, and your new mortgage) cannot exceed ${formatCurrency(dti.maxTotalDebt)}/month. Each $500/month in existing debts reduces your maximum home price by approximately $70,000-$90,000 at today's rates. Use the calculator above to enter your actual debt load.`,
         },
       },
     ],
@@ -224,7 +224,7 @@ export default async function SalaryAffordabilityPage({
 
         {/* Hero */}
         <div className="mb-8">
-          <h1 className="font-black mb-3 leading-tight" style={{ fontSize: "clamp(22px, 5vw, 36px)" }}>
+          <h1 className="font-semibold mb-3 leading-tight" style={{ fontSize: "clamp(22px, 5vw, 36px)" }}>
             How Much House Can I Afford
             <br />
             <span className="text-gradient-1">on a {gross} Salary?</span>
@@ -240,7 +240,7 @@ export default async function SalaryAffordabilityPage({
 
         {/* DTI summary card */}
         <div className="gradient-border-result rounded-xl p-6 mb-8">
-          <p className="terminal-label mb-4">28/36 rule — {gross} income</p>
+          <p className="terminal-label mb-4">28/36 rule: {gross} income</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { label: "Gross monthly income", amount: income / 12 },
@@ -268,7 +268,7 @@ export default async function SalaryAffordabilityPage({
           <h2 className="text-lg font-bold mb-4">Maximum home price by rate and down payment</h2>
           {scenarios.map(({ rate, scenarios: rows }) => (
             <div key={rate} className="mb-6">
-              <p className="terminal-label mb-2">{rate}% mortgage rate — 30-year fixed</p>
+              <p className="terminal-label mb-2">{rate}% mortgage rate: 30-year fixed</p>
               <div className="overflow-x-auto rounded-xl" style={{ border: "1px solid var(--border-subtle)" }}>
                 <table className="w-full text-sm">
                   <thead>
@@ -320,7 +320,7 @@ export default async function SalaryAffordabilityPage({
           className="mb-8 p-5 rounded-xl"
           style={{ background: "rgba(212,175,55,0.06)", border: "1px solid rgba(212,175,55,0.25)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--amber-500)" }}>
+          <p className="text-xs font-bold mb-2" style={{ color: "var(--amber-500)" }}>
             PMI math on a {gross} salary
           </p>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -357,7 +357,7 @@ export default async function SalaryAffordabilityPage({
               },
               {
                 q: `Can I afford a house on ${grossK} with existing debt?`,
-                a: `Existing debts reduce your maximum home price directly. The 36% back-end DTI limit means all monthly debts — car payment, student loans, credit cards, and your new mortgage — cannot exceed ${formatCurrency(dti.maxTotalDebt)}/month combined. Each $500/month in existing debts reduces your maximum home price by roughly $70,000-$90,000 at current rates. Use the calculator above to model your exact situation.`,
+                a: `Existing debts reduce your maximum home price directly. The 36% back-end DTI limit means all monthly debts (car payment, student loans, credit cards, and your new mortgage) cannot exceed ${formatCurrency(dti.maxTotalDebt)}/month combined. Each $500/month in existing debts reduces your maximum home price by roughly $70,000-$90,000 at current rates. Use the calculator above to model your exact situation.`,
               },
             ].map((item, i) => (
               <div key={i} className="aura-panel p-5">
