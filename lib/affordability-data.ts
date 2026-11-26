@@ -151,7 +151,7 @@ export function calculateAffordability(inputs: AffordabilityInputs): Affordabili
   // Front-end limit: 28% of gross monthly income
   const maxHousingFrontEnd = grossMonthlyIncome * 0.28;
 
-  // Back-end limit: 36% total — subtract existing debts
+  // Back-end limit: 36% total, subtract existing debts
   const maxHousingBackEnd = grossMonthlyIncome * 0.36 - monthlyDebts;
 
   // Conservative: use the lower limit

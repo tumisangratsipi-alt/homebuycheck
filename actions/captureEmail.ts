@@ -1,6 +1,6 @@
 "use server";
 
-// actions/captureEmail.ts — homebuycheck.com
+// actions/captureEmail.ts (homebuycheck.com)
 
 import { createClient } from "@supabase/supabase-js";
 
@@ -24,7 +24,7 @@ export async function captureEmail(email: string): Promise<{ ok: boolean; error?
   });
 
   if (error) {
-    if (error.code === "23505") return { ok: true }; // already subscribed — silent success
+    if (error.code === "23505") return { ok: true }; // already subscribed, silent success
     console.error("[email:homebuycheck]", error.message);
     return { ok: false, error: "Could not save. Try again." };
   }

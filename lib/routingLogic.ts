@@ -1,4 +1,4 @@
-// lib/routingLogic.ts — homebuycheck.com
+// lib/routingLogic.ts (homebuycheck.com)
 
 export const CALCMONEY_GOLD = "#D4AF37" as const;
 
@@ -31,7 +31,7 @@ export function resolveHomeBuyRoute(timeHorizonYears: number): HomeBuyRouteResul
     return {
       recommendation: "rent",
       url: URLS.betterment,
-      label: "Put Your Down Payment to Work — Betterment",
+      label: "Put Your Down Payment to Work: Betterment",
       sublabel:
         "Buying and selling within 5 years rarely covers transaction costs (8-11%). Keep renting and invest that down payment instead.",
       colorHex: "#F59E0B",
