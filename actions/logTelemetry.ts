@@ -1,6 +1,6 @@
 "use server";
 
-// actions/logTelemetry.ts — homebuycheck.com
+// actions/logTelemetry.ts (homebuycheck.com)
 
 import { createClient } from "@supabase/supabase-js";
 

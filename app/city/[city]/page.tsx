@@ -138,7 +138,7 @@ export default async function CityAffordabilityPage({
     ],
   };
 
-  // Serialize once — static data only, safe for dangerouslySetInnerHTML
+  // Serialize once: static data only, safe for dangerouslySetInnerHTML
   const jsonLdString = JSON.stringify(jsonLd);
   const faqJsonLdString = JSON.stringify(faqJsonLd);
 
